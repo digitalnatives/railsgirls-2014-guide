@@ -5,6 +5,7 @@ title: "Fejlesztői környezet kialakítása"
 date: 2014-03-22 13:36:43 +0100
 categories:
 comments: false
+published: false
 ---
 
 # Bevezetés
@@ -34,7 +35,7 @@ Töltsük le [ide kattintva](https://dl.dropboxusercontent.com/u/1161080/railsgi
 Nyissuk meg a már feltelepített VirtualBox alkalmazást. A menüben keressük meg a Machine/Add funkciót. Tallózzuk be az imént kicsomagolt könyvtárat, és válasszuk ki a vbox kiterjesztésű file-t.
 Ha minden jól ment, akkor a VirtualBox program bal oldali részén megjelent a RailsGirls nevű virtuális gép, eljött az idő, hogy elindítsuk!
 
-{% img center /images/chapter_00/virtualbox.png 600 600 'image' 'images' %}
+{% img center /images/chapter_00/virtualbox.png 600 600 %}
 
 #### Elindítás
 
@@ -42,7 +43,7 @@ Válasszuk ki a virtuális gépet, majd nyomjunk rá a start gombra! Ha minden j
 
 #### Leállítás
 
-Ha nincs szükség többet a virtuális gépre, akkor le is állíthatjuk. Ehhez klikkeljetek jobb egérgombbal a VirtualBox programon belül a RailsGirls virtuális gépre, és válasszátok a Close / Power Off parancsot. A virtuális gép ezek után gyakorlatilag kikapcsol, és tárhelyen kívül nem foglal többet erőforrást a gépen.
+Ha nincs szükség többet a virtuális gépre, akkor le is állíthatjukk (ezt most egyelőre ne tegyük meg). Ehhez klikkeljünk jobb egérgombbal a VirtualBox programon belül a RailsGirls virtuális gépre, és válasszuk a Close / Power Off parancsot. A virtuális gép ezek után gyakorlatilag kikapcsol, és tárhelyen kívül nem foglal erőforrást a gépen a legközelebbi elindításig.
 
 ### Használat
 
@@ -50,34 +51,38 @@ Most, hogy a virtuális gép már fut, jelentkezzünk be rá. A fent megjelent, 
 A fentiek miatt megoldottuk, hogy a virtuális gépeteket el tudjátok érni a böngészőtökön keresztül! Nyissuk meg a böngászőt, és írjuk be a [http://localhost:57575](http://localhost:57575) címet.
 Ha mindent jól csináltunk eddig, akkor a megjelenő oldalon egy pillangót láthatunk:
 
-{% img center /images/chapter_00/butterfly_login.png 600 600 'image' 'images' %}
+{% img center /images/chapter_00/butterfly_login.png 600 600 %}
 
 Mostantól erre az ablakra konzol-ként fogunk mindenhol hivatkozni, később ide kell beírni rails-es parancsokat.
 
 ### Bejelentkezés
 
-Jelentkezzünk be a virtuális gépbe az alábbi azonosítokkal!
+Jelentkezzünk be a virtuális gépbe az alábbi azonosítokkal! (A jelszó beírásakor nem jelenik meg semmi, ez ne zavarjon minket!)
 
     login: vagrant
     password: vagrant
+
+Sikeres bejelentkezés után a következő fogad minket:
+
+    vagrant@precise32:~$
 
 FONTOS: akárhányszor jelentkezünk is be a fentiek szerint, bejelentkezés után mindig írjuk be a `/bin/bash --login` parancsot!!!
 
 ### Közös könyvtár
 
-Ha idáig eljutottunk, a telepítés nehezén túl vagyunk. Fut a virtuális gépünk, és gyakorlatilag előállt a fejlesztői környezet. Egy dolog van már csak hátra: meg kell osztani azt a a könyvtárat a virtuális géppel, ahová a kódot írni fogjuk.
-Hozzunk létre egy railsgirls nevű könyvtárat a gépünkön (mondjuk a felhasználói fiókótok alá). Állítsuk le a virtuális gépet a már említett módon. Leállítás után jelöljük ki a gépet, majd nyomjunk a Settings gombra. Klikkeljünk a Shared Folders tab-ra, és a jobb oldali gombok közül kattintsunk a kis plusz ikonra. A megjelenő kis ablakban Folder Path-ként tallózzuk be a már létrehozott railsgirls könyvtárat, Folder Name-nek pedig a railsgirls nevet adjuk. Pipáljuk be továbbá az Auto Mount opciót (a másik két opció NE legyen bepipálva).
-Indítsuk el megint a virtuális gépet, majd nyissátok meg a konzolt böngészőben ([http://localhost:57575](http://localhost:57575)). Jelentkezzetek be a már megismert módon (és ne felejtsétek el bejelentkezés után kiadni a `/bin/bash --login` parancsot).
+Ha idáig eljutottunk, a telepítés nehezén túl vagyunk. Fut a virtuális gépünk, és gyakorlatilag előállt a fejlesztői környezet. Egy dolog van már csak hátra: meg kell osztani azt a könyvtárat a virtuális géppel, ahová a kódot írni fogjuk.
+Hozzunk létre egy railsgirls nevű könyvtárat a gépünkön (mondjuk a felhasználói fiókunk alá). Állítsuk le a virtuális gépet a már említett módon. Leállítás után jelöljük ki a gépet, majd nyomjunk a Settings gombra. Klikkeljünk a Shared Folders tab-ra, és a jobb oldali gombok közül kattintsunk a kis plusz ikonra. A megjelenő kis ablakban Folder Path-ként tallózzuk be a már létrehozott railsgirls könyvtárat, Folder Name-nek pedig a railsgirls nevet adjuk. Pipáljuk be továbbá az Auto Mount opciót (a másik két opció NE legyen bepipálva).
+Indítsuk el megint a virtuális gépet, majd nyissuk meg a konzolt böngészőben ([http://localhost:57575](http://localhost:57575)). Jelentkezzetek be a már megismert módon (és ne felejtsétek el bejelentkezés után kiadni a `/bin/bash --login` parancsot).
 
 ## Böngésző
 
-Az egységes kezelhetőség szempontjából kérünk titeket, hogy telepítsétek Firefox nevű böngészőt a gépetekre. Ezt megtehetitek minden platformra a [http://www.getfirefox.com](www.getfirefox.com) címen.
+Az egységes kezelhetőség szempontjából kérünk titeket, hogy telepítsétek Firefox nevű böngészőt a gépetekre. Ezt megtehetjük minden platformon a [http://www.getfirefox.com](http://www.getfirefox.com) címen.
 
 ## SQLite nézegető
 
-Adatbázisként a gépeteken SQLite-ot fogunk használni. Hogy meg tudjuk majd nézni, hogy mit és hogy tárol az adatbázis, szükség van egy nézegetőre. Szerencsére van Firefox app erre.
+Adatbázisként a gépünkön SQLite-ot fogunk használni. Hogy meg tudjuk majd nézni, hogy mit és hogy tárol az adatbázis, szükség van egy nézegetőre. Szerencsére van Firefox app erre.
 A telepítéshez Firefox alól nyissuk meg a [https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/?src](https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/?src) címet, és kattintsunk a Download gombra.
 
 ## Editor
 
-Az editor gyakorlatilag egy nagyon okos szövegszerkesztő, amiben gyakorlatilag a webes alkalmazásunk forráskódját írjuk. Mi nagyon szeretjük a Sublime Text Editor nevű szerkesztőt, ezt a [http://www.sublimetext.com/3](http://www.sublimetext.com/3) töltsük le, és telepítsük.
+Az editor egy nagyon okos szövegszerkesztő, amiben gyakorlatilag a webes alkalmazásunk forráskódját írjuk. Mi nagyon szeretjük a Sublime Text Editor nevű szerkesztőt, ezt a [http://www.sublimetext.com/3](http://www.sublimetext.com/3) töltsük le, és telepítsük.

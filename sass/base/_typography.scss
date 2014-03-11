@@ -125,8 +125,8 @@ del, s { text-decoration: line-through; }
 
 abbr, acronym { border-bottom: 1px dotted; cursor: help; }
 
-pre, code, tt { 
-  @extend .mono; 
+pre, code, tt {
+  @extend .mono;
   background-color: $base03;
 }
 

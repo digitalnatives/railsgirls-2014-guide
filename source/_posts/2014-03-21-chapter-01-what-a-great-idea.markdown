@@ -7,25 +7,26 @@ comments: false
 categories:
 ---
 
-project init + idea scaffold
+Projekt inicializálás, scaffold generálás.
 
 <!-- more -->
 
-rails new ideapad -T
 
-cd ideapad
-edit gemfile
+Futtassuk le a következő parancsokat:
+    $ rails new ideapad -T
+    $ cd ideapad
+    $ bundle install
+    $ rails generate scaffold Idea title:string description:text
+    $ rake db:migrate
 
-add:
-  gem 'execjs'
-  gem 'therubyracer', platforms: :ruby
-run bundle install
 
-rails generate scaffold Idea title:string description:text
+Adjuk hozzá az alábbi sort a `config/routes.rb` fájlhoz:
 
-rake db:migrate
+``` ruby config/routes.rb
+  root to: "ideas#index"
 
-root to: "ideas#index"
-and delete public/index.html
+```
 
-run rails s and play around a bit
+Töröljük ki a `public/index.html` fájt, majd indítsuk el a szervert az alábbi paranccsal:
+
+    $ run rails s and play around a bit

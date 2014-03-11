@@ -17,6 +17,8 @@ A fentiek miatt kísérletképpen azt találtuk ki, hogy eltérünk a hivatalos 
 
 ## Virtuális számítógép
 
+A [virtuális számítógép](http://hu.wikipedia.org/wiki/Virtu%C3%A1lis_sz%C3%A1m%C3%ADt%C3%B3g%C3%A9p) egy szimulált számítógépet jelent. Lényegében egy új számítógép egy másik számítógépen belül.
+
 # Fejlesztői környezet telepítése
 
 ## Virtuális környezet
@@ -25,29 +27,58 @@ A fentiek miatt kísérletképpen azt találtuk ki, hogy eltérünk a hivatalos 
 
 ### VirtualBox
 
-A VirtualBox az Oracle szoftvercég virtualicáziós platformja, amely ingyenesen letölthető mind a három általunk támogatott operációs rendszerre. A https://www.virtualbox.org/wiki/Downloads címről töltsétek le az operációs rendszeretekhez illő telepítőt, és a letöltés után telepítsétek az alkalmazást.
+A VirtualBox az Oracle szoftvercég virtualicáziós platformja, amely ingyenesen letölthető mind a három általunk támogatott operációs rendszerre. A https://www.virtualbox.org/wiki/Downloads címről töltsük le az operációs rendszeretekhez illő telepítőt, és a letöltés után telepítsük az alkalmazást.
 
 ### RailsGirls virtuális gép
 
-Kérlek töltsétek le [ide kattintva](http://www.google.com) a virtuális gépet. Letöltés után csomagolátok ki a zip file-t egy olyan könyvtárba, amit később is megtaláltok.
-Nyissátok meg a már feltelepített VirtualBox alkalmazást. A menüben keressük meg a Machine/Add funkciót. Tallózzuk be az imént kicsomagolt könyvtárat, és válasszuk ki a vbox kiterjesztésű file-t.
-Ha minden jól ment, akkor a VirtualBox program bal oldali részén megjelent a RailsGirls nevű virtuális gép, eljött az idő, hogy elindítsuk! Válasszuk ki a virtuális gépet, majd nyomjuk rá a start gombra! Ha minden jól megy, akkor megjelenik egy új (csúnya fekete) ablak, amiben 10-60 másodperc múlva egy `precise32 login:` felirat. Ez azt jelenti, hogy fut a virtuális gépünk!!! :) Erre az ablakra többet nem lesz szükségünk, de ne zárjátok be, mert muszáj, hogy a háttérben fusson.
+Töltsük le [ide kattintva](http://www.google.com) a virtuális gépet. Letöltés után csomagoljuk ki a zip file-t egy olyan könyvtárba, amit később is megtalálunk.
+Nyissuk meg a már feltelepített VirtualBox alkalmazást. A menüben keressük meg a Machine/Add funkciót. Tallózzuk be az imént kicsomagolt könyvtárat, és válasszuk ki a vbox kiterjesztésű file-t.
+Ha minden jól ment, akkor a VirtualBox program bal oldali részén megjelent a RailsGirls nevű virtuális gép, eljött az idő, hogy elindítsuk!
+
+{% img center /images/chapter_00/virtualbox.png 600 600 'image' 'images' %}
+
+#### Elindítás
+
+Válasszuk ki a virtuális gépet, majd nyomjunk rá a start gombra! Ha minden jól megy, akkor megjelenik egy új (csúnya fekete) ablak amiben 10-60 másodperc múlva egy `precise32 login:` felirat olvasható. Ez azt jelenti, hogy fut a virtuális gépünk!!! :) Erre az ablakra többet nem lesz szükségünk, de ne zárjuk be, mert muszáj, hogy a háttérben fusson.
+
+#### Leállítás
+
+Ha nincs szükség többet a virtuális gépre, akkor le is állíthatjuk. Ehhez klikkeljetek jobb egérgombbal a VirtualBox programon belül a RailsGirls virtuális gépre, és válasszátok a Close / Power Off parancsot. A virtuális gép ezek után gyakorlatilag kikapcsol, és tárhelyen kívül nem foglal többet erőforrást a gépen.
 
 ### Használat
 
-Most, hogy a virtuális gép már fut, jelentkezzünk be rá. A fent megjelent, nem használt virtualbox ablakból is megtehetnénk, de nagyon kényelmetlen lenne a használata (nem venné figyelembe a gépetek billentyűzetkiosztását, nem működne a copy-paste, stb-stb). Távolról is be tudnátok rá jelentkezni (úgynevezett SSH kapcsolat segítségével), de a Windows-on nincs beépített SSH kliens, a telepítése meg elég körülményes.
-Pont emiatt megoldottuk, hogy a virtuális gépeteket el tudjátok érni a böngészőtökön keresztül! Nyissátok meg a böngészőtöket, és írjátok be a [http://localhost:57575](http://localhost:57575) címet.
-Ha mindent jól csináltatok eddig, akkor a megjelenő oldalon egy pillangót fogtok látni! Jelentkezzetek be a virtuális gépbe az alábbi azonosítokkal!
+Most, hogy a virtuális gép már fut, jelentkezzünk be rá. A fent megjelent, nem használt virtualbox ablakból is megtehetnénk, de nagyon kényelmetlen lenne a használata (nem venné figyelembe a gépünk billentyűzetkiosztását, nem működne a copy-paste, stb-stb). Távolról is be tudnátok rá jelentkezni (úgynevezett SSH kapcsolat segítségével), de a Windows-on nincs beépített SSH kliens, a telepítése meg elég körülményes.
+A fentiek miatt megoldottuk, hogy a virtuális gépeteket el tudjátok érni a böngészőtökön keresztül! Nyissuk meg a böngászőt, és írjuk be a [http://localhost:57575](http://localhost:57575) címet.
+Ha mindent jól csináltunk eddig, akkor a megjelenő oldalon egy pillangót láthatunk:
+
+{% img center /images/chapter_00/butterfly_login.png 600 600 'image' 'images' %}
+
+Mostantól erre az ablakra konzol-ként fogunk mindenhol hivatkozni, később ide kell beírni rails-es parancsokat. 
+
+### Bejelentkezés
+
+Jelentkezzünk be a virtuális gépbe az alábbi azonosítokkal!
 
     login: vagrant
     password: vagrant
 
-FONTOS: kérlek akárhányszor jelentkeztek is be a fentiek szerint, bejelentkezés után mindig írjátok be a `/bin/bash --login` parancsot.
+FONTOS: akárhányszor jelentkezünk is be a fentiek szerint, bejelentkezés után mindig írjuk be a `/bin/bash --login` parancsot!!!
+
+### Közös könyvtár
+
+Ha idáig eljutottunk, a telepítés nehezén túl vagyunk. Fut a virtuális gépünk, és gyakorlatilag előállt a fejlesztői környezet. Egy dolog van már csak hátra: meg kell osztani azt a a könyvtárat a virtuális géppel, ahová a kódot írni fogjuk.
+Hozzunk létre egy railsgirls nevű könyvtárat a gépünkön (mondjuk a felhasználói fiókótok alá). Állítsuk le a virtuális gépet a már említett módon. Leállítás után jelöljük ki a gépet, majd nyomjunk a Settings gombra. Klikkeljünk a Shared Folders tab-ra, és a jobb oldali gombok közül kattintsunk a kis plusz ikonra. A megjelenő kis ablakban Folder Path-ként tallózzuk be a már létrehozott railsgirls könyvtárat, Folder Name-nek pedig a railsgirls nevet adjuk. Pipáljuk be továbbá az Auto Mount opciót (a másik két opció NE legyen bepipálva).
+Indítsuk el megint a virtuális gépet, majd nyissátok meg a konzolt böngészőben ([http://localhost:57575](http://localhost:57575)). Jelentkezzetek be a már megismert módon (és ne felejtsétek el bejelentkezés után kiadni a `/bin/bash --login` parancsot).
 
 ## Böngésző
 
+Az egységes kezelhetőség szempontjából kérünk titeket, hogy telepítsétek Firefox nevű böngészőt a gépetekre. Ezt megtehetitek minden platformra a [http://www.getfirefox.com](www.getfirefox.com) címen. 
+
+## SQLite nézegető
+
+Adatbázisként a gépeteken SQLite-ot fogunk használni. Hogy meg tudjuk majd nézni, hogy mit és hogy tárol az adatbázis, szükség van egy nézegetőre. Szerencsére van Firefox app erre.
+A telepítéshez Firefox alól nyissuk meg a [https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/?src](https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/?src) címet, és kattintsunk a Download gombra.
+
 ## Editor
 
-
-
-<!-- more -->
+Az editor gyakorlatilag egy nagyon okos szövegszerkesztő, amiben gyakorlatilag a webes alkalmazásunk forráskódját írjuk. Mi nagyon szeretjük a Sublime Text Editor nevű szerkesztőt, ezt a [http://www.sublimetext.com/3](http://www.sublimetext.com/3) töltsük le, és telepítsük.

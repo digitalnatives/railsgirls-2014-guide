@@ -4,7 +4,6 @@ number: 01
 title: "Fejlesztői környezet kialakítása"
 date: 2014-03-22 13:36:43 +0100
 categories:
-published: false
 comments: false
 ---
 
@@ -53,7 +52,7 @@ Ha mindent jól csináltunk eddig, akkor a megjelenő oldalon egy pillangót lá
 
 {% img center /images/chapter_00/butterfly_login.png 600 600 'image' 'images' %}
 
-Mostantól erre az ablakra konzol-ként fogunk mindenhol hivatkozni, később ide kell beírni rails-es parancsokat. 
+Mostantól erre az ablakra konzol-ként fogunk mindenhol hivatkozni, később ide kell beírni rails-es parancsokat.
 
 ### Bejelentkezés
 
@@ -72,7 +71,7 @@ Indítsuk el megint a virtuális gépet, majd nyissátok meg a konzolt böngész
 
 ## Böngésző
 
-Az egységes kezelhetőség szempontjából kérünk titeket, hogy telepítsétek Firefox nevű böngészőt a gépetekre. Ezt megtehetitek minden platformra a [http://www.getfirefox.com](www.getfirefox.com) címen. 
+Az egységes kezelhetőség szempontjából kérünk titeket, hogy telepítsétek Firefox nevű böngészőt a gépetekre. Ezt megtehetitek minden platformra a [http://www.getfirefox.com](www.getfirefox.com) címen.
 
 ## SQLite nézegető
 

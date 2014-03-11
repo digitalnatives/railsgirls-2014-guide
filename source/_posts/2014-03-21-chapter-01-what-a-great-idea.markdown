@@ -29,4 +29,4 @@ Adjuk hozzá az alábbi sort a `config/routes.rb` fájlhoz:
 
 Töröljük ki a `public/index.html` fájt, majd indítsuk el a szervert az alábbi paranccsal:
 
-    $ run rails s and play around a bit
+    $ rails server

@@ -5,7 +5,7 @@ title: "Fejlesztői környezet kialakítása"
 date: 2014-03-22 13:36:43 +0100
 categories:
 comments: false
-published: false
+published: true
 ---
 
 # Bevezetés

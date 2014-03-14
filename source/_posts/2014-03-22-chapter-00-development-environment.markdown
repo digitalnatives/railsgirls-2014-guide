@@ -45,6 +45,10 @@ Válasszuk ki a virtuális gépet, majd nyomjunk rá a start gombra! Ha minden j
 
 Ha nincs szükség többet a virtuális gépre, akkor le is állíthatjukk (ezt most egyelőre ne tegyük meg). Ehhez klikkeljünk jobb egérgombbal a VirtualBox programon belül a RailsGirls virtuális gépre, és válasszuk a Close / Power Off parancsot. A virtuális gép ezek után gyakorlatilag kikapcsol, és tárhelyen kívül nem foglal erőforrást a gépen a legközelebbi elindításig.
 
+#### Eltűnő egér
+
+Ha a nem használt VirtualBox ablakba beleklikkelünk, az "elakapja" az egeret, és gyakorlatilag eltűnik. Az ablak jobb alsó sarkában látszik, hogy milyen billentyűt kell megnyomni az egér elengedéséhez. Mac-en ez a bal oldali command gomb, a többi operációs rendszeren pedig a jobb oldali ctrl gomb.
+
 ### Használat
 
 Most, hogy a virtuális gép már fut, jelentkezzünk be rá. A fent megjelent, nem használt virtualbox ablakból is megtehetnénk, de nagyon kényelmetlen lenne a használata (nem venné figyelembe a gépünk billentyűzetkiosztását, nem működne a copy-paste, stb-stb). Távolról is be tudnátok rá jelentkezni (úgynevezett SSH kapcsolat segítségével), de a Windows-on nincs beépített SSH kliens, a telepítése meg elég körülményes.
@@ -54,6 +58,10 @@ Ha mindent jól csináltunk eddig, akkor a megjelenő oldalon egy pillangót lá
 {% img center /images/chapter_00/butterfly_login.png 600 600 %}
 
 Mostantól erre az ablakra konzol-ként fogunk mindenhol hivatkozni, később ide kell beírni rails-es parancsokat.
+
+#### Copy-paste
+
+Linux-on és Windows-on nem a megszokott ctrl-v billentyűzetkombinációval működik a beillesztés. Helyette a shift-insert kombinációt használjuk, az esetek többségében működik
 
 ### Bejelentkezés
 
@@ -73,6 +81,18 @@ FONTOS: akárhányszor jelentkezünk is be a fentiek szerint, bejelentkezés ut�
 Ha idáig eljutottunk, a telepítés nehezén túl vagyunk. Fut a virtuális gépünk, és gyakorlatilag előállt a fejlesztői környezet. Egy dolog van már csak hátra: meg kell osztani azt a könyvtárat a virtuális géppel, ahová a kódot írni fogjuk.
 Hozzunk létre egy railsgirls nevű könyvtárat a gépünkön (mondjuk a felhasználói fiókunk alá). Állítsuk le a virtuális gépet a már említett módon. Leállítás után jelöljük ki a gépet, majd nyomjunk a Settings gombra. Klikkeljünk a Shared Folders tab-ra, és a jobb oldali gombok közül kattintsunk a kis plusz ikonra. A megjelenő kis ablakban Folder Path-ként tallózzuk be a már létrehozott railsgirls könyvtárat, Folder Name-nek pedig a railsgirls nevet adjuk. Pipáljuk be továbbá az Auto Mount opciót (a másik két opció NE legyen bepipálva).
 Indítsuk el megint a virtuális gépet, majd nyissuk meg a konzolt böngészőben ([http://localhost:57575](http://localhost:57575)). Jelentkezzetek be a már megismert módon (és ne felejtsétek el bejelentkezés után kiadni a `/bin/bash --login` parancsot).
+
+#### Ellenőrzés
+
+A megosztott könyvtár a virtuális gépen a /media/sf_railsgirls útvonalon található meg. Ellenőrizzük, hogy minden működik. Lépjünk először be ebbe a könyvtárba a konzolban:
+
+    $ cd /media/sf_railsgirls
+
+Hozzunk létre egy üres file-t:
+
+    $ touch test.txt
+
+Most nézzük meg a saját operációs rendszerünkben, hogy a megosztott könyvtárban ott van e a `test.txt` file. Ha igen, akkor készen van a virtuális környezetünk! :)
 
 ## Böngésző
 

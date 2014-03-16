@@ -1,56 +1,92 @@
 ---
 layout: post
-title: "Chapter 02 - It's alive"
+title: "Második fejezet -  Hiszen ez él!"
 date: 2014-03-20 09:17:10 +0100
-published: false
 comments: false
 categories:
+published: true
 ---
+Ez a fejezet két dologról fog szólni: verziókövetésről és webszerverekről. 
 
-heroku deploy
+A Heroku egy webszerver szolgáltatás, ami webes alkalmazások futtatására lett kiépítve. Ha az alkalmazásunk itt fut, akkor mindig mindenhonnan elérhető lesz. Ehhez azonban fel kell másolnunk az alkalmazást a szerverre. Node hogyan? Az egyik széles körben elterjedt megoldás erre a git. 
 
 <!-- more -->
+## GIT
+A git egy verziókövető rendszer. A verziókövetés azt jelenti, hogy a git ugyanannak a fájlnak különböző verzióit eltárolja, így a különböző verziókat összevethetjük, vagy egy régebbit visszaállíthatunk. 
 
-register a heroku account - should be done prior
-gem install heroku
+A git működési terepe az úgynevezett repository, egy mappa, amiben olyan fájlok vannak, amiket lehet, hogy a gitnek követnie kell. 
+Hozzunk létre egy repository-t:
+	git init
 
-heroku login (generate ssh key if necessary)
+Mondjuk meg a git-nek, hogy kik vagyunk és mi az email címünk:
+	git config --global user.email "you@example.com"
+	git config --global user.name "Your Name"
 
-config/application.rb : config.assets.initialize_on_precompile = false
+Adjuk hozzá az összes fájlunkat az elmentendő fájlok halmazához és mentsük el: 
+	git add .
+	git commit -m"elso commitom"
 
-Gemfile:
-gem 'sqlite3', group: [:development, :test]
-group :production do
-  gem 'thin'
-  gem 'pg'
-end
+COACHOK: magyarázzátok el ezeket a parancsokat. Hozzatok létre még egy commitot, és vessétek össze az előző állapottal. Mutassátok meg a status, a log és diff parancsokat. 
 
-(bundle install --without production)
+A továbbiakban nyugodtan használhatjátok a gitet a munkátok elmentésére, pl minden fejezet végén. 
+A következő paranccsal ez egy lépésben megtehető:
+	git commit -a -m "commit uzenet"
 
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
+Szóval mire kellett nekünk ez az egész? Azért mert a git nem csak a verziókövetés eszköze, hanem a közös munkáé, illetve a megosztásé is. Segítségével a helyi repository-nk tartalmát könnyen átmásolhatjuk egy másikba, pl egyenesen fel a Heroku szerverre. 
 
-git init
-git add .
-git commit -m 'init'
-git status =>
-  On branch master
-  nothing to commit, working directory clean
+## HEROKU
+(Ugye mindenkinek van már Heroku regisztrációja? A https://id.heroku.com/login oldalon e-mail címmel és egy jelszóval kell tudni belépni.)
 
-heroku create =>
-  Creating stark-everglades-5886... done, stack is cedar
-  http://stark-everglades-5886.herokuapp.com/ | git@heroku.com:stark-everglades-5886.git
-  Git remote heroku added
+Miért éppen a Heroku? leginkább azért, mert sokmindent megcsinál helyettünk, és mert nagyon kényelmesen kezelhető távolról.  Ehhez rendelkezésre áll egy lokálisan futtatható kliensprogram, aminek a segítségével egyszerűen tudjuk a szerveren lévő alkalmazást és a környezetét is kezelni. 
 
-heroku keys:add
+Először is installáljuk a klienst:
+	gem install heroku
+majd lépjünk be:
+	heroku login
+Kérni fogja a regisztrációhoz szükséges emailt és jelszót, adjuk meg. 
 
-git push heroku master
-heroku run rake db:create
+A Heroku szerver környezete kicsit más, mint a mi saját fejlesztői környezetünk a saját gépünkön, ezért némi változtatást kell eszközölnünk a programunkon. A `config/application.rb` fájlhoz az utolsó sor( az end) előtt adjuk hozzá ezt a sort:
+	config.assets.initialize_on_precompile = false
 
-heroku ps:scale web=1
+A Gemfájlban a 
+	gem 'sqlite3' 
+sort változtassuk meg erre:
+	gem 'sqlite3', group: [:development, :test]
 
-heroku apps =>
-  === My Apps
-  stark-everglades-5886
+és adjuk hozzá ezeket a sorokat:
+	group :production do
+	  gem 'thin'
+	  gem 'pg'
+	end
+majd futtassuk le a konzolban:
+	bundle install --without production
 
-=> open stark-everglades-5886.heroku.com
+COACHOK: beszéljétek meg, hogy ezek miért kellenek, beszéljetek a test, development és production környezetekről.  
+
+A heroku klienssel hozzunk létre egy új, üres alkalmazást a szerveren: 
+	heroku create
+
+Az üres alkalmazással együtt létrejött a szerveren egy git repository, ahova betolhatjuk az alkalmazásunkat:  
+	git push heroku master
+
+(Ha nem engedne be, akkor készítsünk ssh kulcsot és töltsük fel:
+	ssh-keygen -t rsa
+	heroku keys:add
+)
+
+A későbbiekben, ha változtatunk a programon, akkor (commit után) megint bepusholhatjuk a változtatásokat. 
+COACHOK: beszéljetek arról, hogy mi történt push után. 
+
+Még egy pár apróság kell:
+	heroku run rake db:create
+	heroku ps:scale web=1
+
+A heroku apps parancsra a kliens kiírja, hogy milyen nevű alkalmazásaink vannak (hiszen lehet több is). 
+	heroku apps
+
+Az alkalmazás neve mindenkinek más, a Heroku generálja. Rögtön meg is nyithatjuk a heroku open paranccsal:
+	heroku open <programneve>
+
+Nézzünk körül, mindennek ugyanúgy kell működnie, mint a saját gépünkön. A heroku.com oldalon belépés után láthajuk a létrejött alkalmazást, és hogy vannak minednféle beállítási lehetőségek. 
+
+COACHOK: beszéljétek meg, miért kellett a db:create? beszéljetek kicsit arról, hogy mit jelent a skálázhatóság. Együtt gondoljátok végig, hogy miért előnyös a gittel történő másolás.  

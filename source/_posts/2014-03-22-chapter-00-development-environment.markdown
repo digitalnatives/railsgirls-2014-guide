@@ -43,16 +43,16 @@ Válasszuk ki a virtuális gépet, majd nyomjunk rá a start gombra! Ha minden j
 
 #### Leállítás
 
-Ha nincs szükség többet a virtuális gépre, akkor le is állíthatjukk (ezt most egyelőre ne tegyük meg). Ehhez klikkeljünk jobb egérgombbal a VirtualBox programon belül a RailsGirls virtuális gépre, és válasszuk a Close / Power Off parancsot. A virtuális gép ezek után gyakorlatilag kikapcsol, és tárhelyen kívül nem foglal erőforrást a gépen a legközelebbi elindításig.
+Ha nincs szükség többet a virtuális gépre, akkor le is állíthatjuk (ezt most egyelőre ne tegyük meg). Ehhez klikkeljünk jobb egérgombbal a VirtualBox programon belül a RailsGirls virtuális gépre, és válasszuk a Close / Power Off parancsot. A virtuális gép ezek után gyakorlatilag kikapcsol, és tárhelyen kívül nem foglal erőforrást a gépen a legközelebbi elindításig.
 
 #### Eltűnő egér
 
-Ha a nem használt VirtualBox ablakba beleklikkelünk, az "elakapja" az egeret, és gyakorlatilag eltűnik. Az ablak jobb alsó sarkában látszik, hogy milyen billentyűt kell megnyomni az egér elengedéséhez. Mac-en ez a bal oldali command gomb, a többi operációs rendszeren pedig a jobb oldali ctrl gomb.
+Ha a nem használt VirtualBox ablakba beleklikkelünk, az "elkapja" az egeret, és gyakorlatilag eltűnik. Az ablak jobb alsó sarkában látszik, hogy milyen billentyűt kell megnyomni az egér elengedéséhez. Mac-en ez a bal oldali command gomb, a többi operációs rendszeren pedig a jobb oldali ctrl gomb.
 
 ### Használat
 
 Most, hogy a virtuális gép már fut, jelentkezzünk be rá. A fent megjelent, nem használt virtualbox ablakból is megtehetnénk, de nagyon kényelmetlen lenne a használata (nem venné figyelembe a gépünk billentyűzetkiosztását, nem működne a copy-paste, stb-stb). Távolról is be tudnátok rá jelentkezni (úgynevezett SSH kapcsolat segítségével), de a Windows-on nincs beépített SSH kliens, a telepítése meg elég körülményes.
-A fentiek miatt megoldottuk, hogy a virtuális gépeteket el tudjátok érni a böngészőtökön keresztül! Nyissuk meg a böngászőt, és írjuk be a [http://localhost:57575](http://localhost:57575) címet.
+A fentiek miatt megoldottuk, hogy a virtuális gépeteket el tudjátok érni a böngészőtökön keresztül! Nyissuk meg a böngészőt, és írjuk be a [http://localhost:57575](http://localhost:57575) címet.
 Ha mindent jól csináltunk eddig, akkor a megjelenő oldalon egy pillangót láthatunk:
 
 {% img center /images/chapter_00/butterfly_login.png 600 600 %}

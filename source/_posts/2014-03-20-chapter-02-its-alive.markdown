@@ -61,7 +61,7 @@ sort változtassuk meg erre:
 majd futtassuk le a konzolban:
 	bundle install --without production
 
-COACHOK: beszéljétek meg, hogy ezek miért kellenek, beszéljetek a test, development és production környezetekről.  
+
 
 A heroku klienssel hozzunk létre egy új, üres alkalmazást a szerveren: 
 	heroku create
@@ -75,7 +75,7 @@ Az üres alkalmazással együtt létrejött a szerveren egy git repository, ahov
 )
 
 A későbbiekben, ha változtatunk a programon, akkor (commit után) megint bepusholhatjuk a változtatásokat. 
-COACHOK: beszéljetek arról, hogy mi történt push után. 
+
 
 Még egy pár apróság kell:
 	heroku run rake db:create
@@ -88,5 +88,4 @@ Az alkalmazás neve mindenkinek más, a Heroku generálja. Rögtön meg is nyith
 	heroku open <programneve>
 
 Nézzünk körül, mindennek ugyanúgy kell működnie, mint a saját gépünkön. A heroku.com oldalon belépés után láthajuk a létrejött alkalmazást, és hogy vannak minednféle beállítási lehetőségek. 
-
-COACHOK: beszéljétek meg, miért kellett a db:create? beszéljetek kicsit arról, hogy mit jelent a skálázhatóság. Együtt gondoljátok végig, hogy miért előnyös a gittel történő másolás.  
+ 

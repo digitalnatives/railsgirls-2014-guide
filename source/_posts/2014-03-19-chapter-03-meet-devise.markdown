@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Chapter 03 - Meet Devise"
+title: "Harmadik fejezet - Ismerkedjük meg a deviseszal"
 date: 2014-03-19 09:17:54 +0100
 published: false
 comments: false
@@ -11,11 +11,11 @@ categories:
 
 Nyissuk meg a `Gemfile`-t, és adjuk hozzá a következő sort:
 
-	gem devise
+	$ gem devise
 
 Utána pedig futtassuk a terminálban a következőt:
 
-	bundle install --without production
+	$ bundle install --without production
 
 Ezután indítsuk újra a szerverünket.
 
@@ -23,29 +23,33 @@ Ezután indítsuk újra a szerverünket.
 
 A terminálba írjuk be, hogy:
 
-	rails g devise:install
+	$ rails g devise:install
 
 ## 2. lépés: Konfiguráljuk!
 
 Nyissuk meg a szerkesztőben a `config/environments/development.rb` fájlt, és adjuk hozzá a következő sort az `end` szó előtt:
 
-	config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+``` ruby config/environments/development.rb
+config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+```
 
 Most nyissuk meg a `app/views/layouts/application.html.erb` fájlunkat, és a `<%= yield %>` fölé írjuk be ezt:
 
-	<% if notice %>
-	  <p class="alert alert-notice"><%= notice %></p>
-	<% end %>
-	<% if alert %>
-	  <p class="alert alert-error"><%= alert %></p>
-	<% end %>
+``` erb app/views/layouts/application.html.erb
+<% if notice %>
+	<p class="alert alert-notice"><%= notice %></p>
+<% end %>
+<% if alert %>
+	<p class="alert alert-error"><%= alert %></p>
+<% end %>
+```
 
 ## 3. lépés: Állítsuk be a User modellt
 
 A terminálba kell most beírnunk, hogy:
 
-	rails g devise user
-	rake db:migrate
+	$ rails generate devise user
+	$ rake db:migrate
 
 ## 4. lépés: Az első felhasználó...
 
@@ -54,60 +58,61 @@ Most, hogy már mindent beállítottunk, beregisztrálhatjuk az első felhaszná
 ## 5. lépés: Linkek a regisztrációhoz és bejelentkezéshez
 
 Szeretnénk, ha a látogatók is be tudnának regisztrálni az oldalunkra, így csináljunk a navigációba linket hozzá!
-Nyissuk meg a szerkesztőben a 'app/views/layouts/application.html.erb' fájlt, és a 
+Nyissuk meg a szerkesztőben a `app/views/layouts/application.html.erb` fájlt, és a
 
-	<ul class="nav">
-  		<li class="active"><a href="/ideas">Ideas</a></li>
-	</ul>
+``` erb app/views/layouts/application.html.erb
+<ul class="nav">
+  <li class="active"><a href="/ideas">Ideas</a></li>
+</ul>
+```
 
 rész után adjuk hozzá a következőket:
 
-	<p class="navbar-text pull-right">
-	<% if user_signed_in? %>
-	  Logged in as <strong><%= current_user.email %></strong>.
-	  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-	  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-	<% else %>
-	  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-	  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-	<% end %>
-
-Adjuk a következő kódot a 'flash messages in 'app/views/layouts/application.html.erb'-hez:
-	
-	<p class="notice"><%= notice %></p>
-	<p class="alert"><%= alert %></p>
+``` erb app/views/layouts/application.html.erb
+<p class="navbar-text pull-right">
+<% if user_signed_in? %>
+	Logged in as <strong><%= current_user.email %></strong>.
+	<%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+	<%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+<% else %>
+	<%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+	<%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+<% end %>
+```
 
 Végül még állítsuk be, hogy automatikusan a bejelentkező oldalra legyenek irányítva a látogatók, mielőtt bármilyen ötlethez nyúlhatnának.
-Ehhez most a 'app/controllers/application_controller.rb' fájlba kell beleírnunk a 'protect_from_forgery with: :exception' rész után, hogy
+Ehhez most az `app/controllers/ideas_controller` fájlhoz hozzá kell adnunk a következő sort:
 
-	before_action :authenticate_user!
-
-Az 'ideas_controller' fájlhoz pedig azt, hogy:
-
+``` ruby app/controllers/ideas_controller.rb
 	before_filter :authenticate_user!
+```
 
 És készen is vagyunk! Jelentkezgessünk ki-be az oldalon, ugye milyen jó?
 
-Beállíthatjuk még a jelszó hosszát a 'config/initializers/devise.rb' részen, mondjuk 6-ra.
+Beállíthatjuk még a jelszó hosszát a `config/initializers/devise.rb` részen, mondjuk 6-ra.
 
 # Egy másik gem
 
 ## Az elfelejtett jelszó problémája
 
-Az előző részben látotthoz hasonlóan adjuk a 'letter_opener_web'-t is hozzá a 'gemfile'-hoz!
+Az előző részben látotthoz hasonlóan adjuk a `letter_opener_web` nevű gemet is hozzá a `Gemfile`-hoz!
 Majd jöhet a szokásos terminál parancs:
 
-	bundle install --without production
+	$ bundle install --without production
 
 Állitsuk be az útvonalakat:
 
+``` ruby config/routes.rb
 	if Rails.env.development?
 		mount LetterOpenerWeb::Engine, at: "/letter_opener"
 	end
+```
 
-Majd a 'development.rb' fájlban állítsuk be az e-mail küldés formáját:
+Majd a `config/environments/development.rb` fájlban állítsuk be az e-mail küldés formáját:
 
+``` ruby config/environments/development.rb
 	config.action_mailer.delivery_method = :letter_opener_web
 	config.action_mailer.default_url_options = { host: 'localhost' }
+```
 
 Nézzük, mi is történt: igényeljünk egy jelszó-emlékeztetőt, majd ellenőrizzük a [http://localhost:3000/letter_opener](http://localhost:3000/letter_opener) oldalt!

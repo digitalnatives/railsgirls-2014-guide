@@ -43,10 +43,6 @@ Adjuk most hozzá az összes fájlunkat az elmentendő fájlok listájához, és
 Egy pár hasznos parancs: a `git status` parancs megmondja, hogy mi van a mentendő fájlok listáján, mi nincs, (és ha vannak mik azok a fájlok, amiket a git egyáltalán nem is követ). A `git log` parancs kiirja az összes eddigi commitot. Mindegyikhez tartozik egy hosszú, betűkből és számokból álló egyedi azonositó (hash). A `git diff` parancs megutatja, hogy mi változott a legutóbbi commit óta. Ha pedig a `git diff` után két commitnak a hashét irjuk, akkor a két commit közti változtatásokat mutatja meg. 
 COACHOK: próbáljátok ki ezeket a pranacsokat egy új commiton. 
 
-A továbbiakban nyugodtan használhatjátok a gitet a munkátok elmentésére, pl minden fejezet végén.
-A következő paranccsal ez egy lépésben megtehető:
-	$ git commit -a -m "commit uzenet"
-
 ### Közös munka, távoli repository-k 
 A git repository-k tudhatnak egymásról. Ha egy repository tud egy másikról, akkor elkérheti tőle a benne lévő fájlokat, azoknak az egész verziótörténetével együtt (`git clone`), és később a bekövetkező változtatásokat is könnyen lehívhatja (`git pull`). Sőt, ha van jogosultsága, akár saját, új commitokat visszatolhat (`git push`). 
 A közös munka attól válik egyszerűvé, hogy azok a repository-k, amikben a különböző fejlesztők dolgoznak, tudnak egymásról, és a fejlesztők könnyen lekérhetik egymástól az új változásokat, amiket a git szépen összefésül nekik a saját változásaikkal (de nem kell az egészet másolni). Azt is sokszor csinálják, hogy egy szerveren fenntartanak egy központi repository-t, mindenki oda pushol, és csak onnan pullol. Ráadásul a több repository biztonsági mentésként is szolgál: ha az egyik fejlesztőnek elfüstöl a gépe, a munkája továbbra is meglesz az összes többi fejlesztő repositoryjában.
@@ -97,6 +93,8 @@ end
 majd futtassuk le a konzolban:
 	$ bundle install --without production
 
+A `git status` paranccsal megnézhetjük, hogy 3 fájl változott (az a kettő, amit szerkesztettünk, és a *Gemfile.lock*). Nagyon fontos, hogy ezeket a változtatásokat is elmentsük: ezt egyetlen sorban megtehetjük a következő paranccsal
+	git commit -a -m"heroku elokeszites"
 
 ### Másolás!
 A heroku kliens segjtségével létrehozunk egy új, üres alkalmazást a szerveren:
@@ -114,10 +112,9 @@ A kimenetből látszik, hogy a Heroku szerver felismerte hogy ruby on rails alka
 
 A későbbiekben, ha változtatunk a programon, akkor (commit után) megint bepusholhatjuk a változtatásokat.
 
-Már majdnem készen vagyunk. De. A git ugyan követi a fájljaink szöveges tartalmát, de az adatbázisba sajnos nem lát bele. Úgyhogy a Heroku szerveren még nem jött létre adatbázis, ott is le kell futtani a `rake db: create` parancsot. Szerencsére a `heroku run` parancs akármit lefuttat nekünk, amit mögé írunk:
-	$ heroku run rake db:create
+Már majdnem készen vagyunk. De. A git ugyan követi a fájljaink szöveges tartalmát, de az adatbázisba sajnos nem lát bele. Úgyhogy a Heroku szerveren még nem jött létre adatbázis, ott is le kell futtani a `rake db:migrate` parancsot. Szerencsére a `heroku run` parancs akármit lefuttat nekünk, amit mögé írunk:
 	$ heroku run rake db:migrate
 
-Készen is vagyunk, meg akarjuk nyitni a programunkat böngészőben, a `git push` kimenetének a végén ott volt a link. De ha nem figyeltünk volna, a `heroku apps` parancsra a kliens kiírja, hogy milyen nevű alkalmazásaink vannak (hiszen lehet több is), a `heroku open programneve` pedig megnyitja nekünk böngészőben.
+Készen is vagyunk, meg akarjuk nyitni a programunkat böngészőben, a `git push` kimenetének a végén ott volt a link. De ha nem figyeltünk volna, a `heroku apps:info` parancsra a kliens kiírja az alkalmazásunk adatait, és ezek közt megtaláljuk az url-t, amin az alkalmazás elérhető. (Ha ezt egérrel kijelüljük, akkor a jobb egérgombbal menüből megnyitható.) 
 Nézzünk körül, mindennek ugyanúgy kell működnie, mint a saját gépünkön. A heroku.com oldalon belépés után láthajuk a létrejött alkalmazást, és hogy vannak minednféle beállítási lehetőségek.
 

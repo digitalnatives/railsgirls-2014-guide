@@ -1,10 +1,11 @@
 ---
 layout: post
 title: "Második fejezet -  Hiszen ez él!"
+number: 03
 date: 2014-03-20 09:17:10 +0100
 comments: false
+published: true
 categories:
-published: false
 ---
 Ez a fejezet két dologról fog szólni: verziókövetésről és webszerverekről.
 
@@ -62,14 +63,14 @@ Kérni fogja a regisztrációhoz szükséges emailt és jelszót, adjuk meg.
 
 ### Egy kis előkészület
 A Heroku szerver környezete kicsit más, mint a mi saját fejlesztői környezetünk a saját gépünkön, ezért némi változtatást kell eszközölnünk a programunkon. A *config/application.rb* fájlhoz az utolsó sor (az `end`) előtt adjuk hozzá ezt a sort:
-```config/application.rb linenos:false
+``` ruby config/application.rb 
 	config.assets.initialize_on_precompile = false
 
 ```
 
 A Gemfájlban a
 
-```ruby Gemfile
+``` ruby Gemfile
 gem 'sqlite3'
 
 ```
@@ -82,7 +83,7 @@ gem 'sqlite3', group: [:development, :test]
 
 és adjuk hozzá ezeket a sorokat:
 
-```ruby Gemfile
+``` ruby Gemfile
 group :production do
   gem 'thin'
   gem 'pg'

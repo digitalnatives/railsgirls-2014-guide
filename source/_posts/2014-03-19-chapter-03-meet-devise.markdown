@@ -7,27 +7,32 @@ comments: false
 categories:
 ---
 
-Ebben a fejezetben megtapasztaljuk, hogy milyen kellemes, mikor nem kell újra feltalálnuk a spanyolviaszt. Megismerkedünk a devise nevű gemmel, és fel is használjuk arra, hogy az oldalunk ezentúl csak regisztrált felhasználók számára legyen elérhető.
+Ebben a fejezetben megtapasztaljuk, hogy milyen kellemes, mikor nem kell újra feltalálnuk a spanyolviaszt. Megismerkedünk a devise nevű gemmel, és fel is használjuk arra, hogy az oldalunk ezentúl csak regisztrált felhasználók számára legyen elérhető. Majd mire már annyira megszerettük a gem-eket, kipróbálunk még egyet, a letter_opener-t.
 
 <!-- more -->
 
 # Devise integráció
 
-Nyissuk meg a `Gemfile`-t, és adjuk hozzá a következő sort:
+Emlékezzünk vissza picit, mit csináltunk az első fejezetben! Amit ott hallottunk 'gem'-ekről meg a 'bundle' nevű parancsról, most azt fogjuk alkalmazni.
+Nyissuk meg a `Gemfile`-t (ami emlékezzünk csak, hogy igazából egy lista arról, milyen gem-eket használ az app), és adjuk hozzá a következő sort:
 
 	$ gem devise
 
+Ezzel most megmondtuk, hogy a 'devise'-ra is szükségünk van a jövőben.
 Utána pedig futtassuk a terminálban a következőt:
 
 	$ bundle install --without production
 
-Ezután indítsuk újra a szerverünket.
+Ezzel tudjuk feltelepíteni az új csomagfüggőséget, mint az app felépítésének legelején is csináltuk.
+Ezután indítsuk újra a szerverünket (ez már csak ilyen rutin dolog itt, fejlesztés közben, időnként újraindítjuk a szervert, hogy biztos minden újítás frissüljön az oldalon).
 
 ## 1. lépés: A devise beállítása az app-ben
 
 A terminálba írjuk be, hogy:
 
 	$ rails g devise:install
+
+Ezzel hozzáadjuk a deviset
 
 ## 2. lépés: Konfiguráljuk!
 
@@ -50,18 +55,21 @@ Most nyissuk meg a `app/views/layouts/application.html.erb` fájlunkat, és a `<
 
 ## 3. lépés: Állítsuk be a User modellt
 
-A terminálba kell most beírnunk, hogy:
+Generáljuk le a felhasználói modellt:
 
 	$ rails generate devise user
+
+A konzolban futtasuk le a következő parancsot, ahhoz, hogy az adatbázis-szintű változások megtörténjenek:
+
 	$ rake db:migrate
 
 ## 4. lépés: Az első felhasználó...
 
-Most, hogy már mindent beállítottunk, beregisztrálhatjuk az első felhasználónkat! Ehhez (ha a szerver fut) a [http://localhost:3000/users/sign_up](http://localhost:3000/users/sign_up) címre kell mennünk, és megadni a szükséges felhasználói adatokat.
+Most, hogy már mindent beállítottunk, beregisztrálhatjuk az első felhasználónkat! Ehhez biztos-ami-biztos, indítsunk most megint újra a szervert, és menjünk a [http://localhost:3000/users/sign_up](http://localhost:3000/users/sign_up) címre, majd töltsük ki a szükséges felhasználói adatokat, és kész is az első felhasználónk!
 
 ## 5. lépés: Linkek a regisztrációhoz és bejelentkezéshez
 
-Szeretnénk, ha a látogatók is be tudnának regisztrálni az oldalunkra, így csináljunk a navigációba linket hozzá!
+Szeretnénk, ha anélkül is be lehetne regisztrálni az oldalunkra, hogy mindig be kellene gépelni a [http://localhost:3000/users/sign_up](http://localhost:3000/users/sign_up) címet, így csináljunk a navigációba linket hozzá!
 Nyissuk meg a szerkesztőben a `app/views/layouts/application.html.erb` fájlt, és a
 
 ``` erb app/views/layouts/application.html.erb
@@ -84,23 +92,26 @@ rész után adjuk hozzá a következőket:
 <% end %>
 ```
 
-Végül még állítsuk be, hogy automatikusan a bejelentkező oldalra legyenek irányítva a látogatók, mielőtt bármilyen ötlethez nyúlhatnának.
+Ez azt csináltatja a programmal, amit angolul jelent a kód, de tényleg: 'link to', azaz csinálj linket, majd megmondja, hogy milyen néven, és hova mutasson a link.
+Végül még állítsuk be, hogy automatikusan a bejelentkező oldalra legyenek irányítva a látogatók, mielőtt bármilyen ötlethez nyúlhatnának, hogy ne tudjon csak úgy akárki randalírozni az oldalon.
 Ehhez most az `app/controllers/ideas_controller` fájlhoz hozzá kell adnunk a következő sort:
 
 ``` ruby app/controllers/ideas_controller.rb
 	before_filter :authenticate_user!
 ```
 
+Itt a `before_filter` függvény ellenőrzi a felhasználót, hogy be van-e jelentkezve. Ezzel a függvénnyel ma még később is találkozunk majd.
+Beállíthatjuk még a jelszó hosszát a `config/initializers/devise.rb` részen, mondjuk 6-ra, csak a biztonság kedvéért.
 És készen is vagyunk! Jelentkezgessünk ki-be az oldalon, ugye milyen jó?
-
-Beállíthatjuk még a jelszó hosszát a `config/initializers/devise.rb` részen, mondjuk 6-ra.
 
 # Egy másik gem
 
 ## Az elfelejtett jelszó problémája
 
-Az előző részben látotthoz hasonlóan adjuk a `letter_opener_web` nevű gemet is hozzá a `Gemfile`-hoz!
-Majd jöhet a szokásos terminál parancs:
+Biztos előfordult már mindenkivel, hogy a sok regisztráció után elfelejtettük egy adott oldalra a jelszavunkat (hiába van meg a kedvenc kis jelszavunk, amit az összes oldalon használunk, itt mondjuk valamiért mást kellett megadni, amit persze el is felejtettünk azóta). Ennek a problémának a megoldására van a jelszó-emlékeztető e-mail kitalálva, ahogy biztos már sok oldalon láttuk (és használtuk) is. Amíg azonban még nem múködik tökéletesen a jelszó-emlékeztetőnk, igen idegesítő lehet állandóan e-maileket küldözgetni magunknak, amihez mindig ki-be kell jelentkezni a levelezésünkbe, ráadásul tele lesz szeméttel, stb.
+Mivel azonban a Ruby on Rails annyira jó, természetesen erre is van egy jó kis gem, a 'letter_opener_web'. Ez azt tudja, hogy egy honlapon legenerálja nekünk a jelszó-emlékeztető levelet, így egyből láthatjuk, hogyan is nézne ki e-mailben.
+Tehát akkor az előző részben látotthoz hasonlóan adjuk a `letter_opener_web` nevű gemet is hozzá a `Gemfile`-hoz!
+Majd jöhet a szokásos terminál parancs a függőségek beállítására:
 
 	$ bundle install --without production
 
@@ -112,7 +123,7 @@ Majd jöhet a szokásos terminál parancs:
 	end
 ```
 
-Majd a `config/environments/development.rb` fájlban állítsuk be az e-mail küldés formáját:
+Majd a `config/environments/development.rb` fájlban állítsuk be az e-mail küldés formáját (magyarul: itt mondjuk meg a gem-nek, hogy ne e-mailt írjon, hanem egy honlapon jelenítse meg a levelet):
 
 ``` ruby config/environments/development.rb
 	config.action_mailer.delivery_method = :letter_opener_web

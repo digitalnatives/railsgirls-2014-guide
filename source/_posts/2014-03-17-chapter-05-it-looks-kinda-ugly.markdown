@@ -11,6 +11,8 @@ categories:
 
 Most, hogy működik az app, már foglalkozhatunk a külsőségekkel is kicsit. Adjunk egy kis dizájnt neki, hogy ránézésre is profi oldalunk legyen!
 
+<!-- more -->
+
 ## 1. lépés: állítsuk be az app kinézetét
 
 Használjuk a bootstrap.min.css fájlt, hogy kicsit könnyedebb stílusú legyen az oldal.

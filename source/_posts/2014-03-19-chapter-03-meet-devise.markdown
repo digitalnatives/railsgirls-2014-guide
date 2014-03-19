@@ -7,6 +7,10 @@ comments: false
 categories:
 ---
 
+Ebben a fejezetben megtapasztaljuk, hogy milyen kellemes, mikor nem kell újra feltalálnuk a spanyolviaszt. Megismerkedünk a devise nevű gemmel, és fel is használjuk arra, hogy az oldalunk ezentúl csak regisztrált felhasználók számára legyen elérhető.
+
+<!-- more -->
+
 # Devise integráció
 
 Nyissuk meg a `Gemfile`-t, és adjuk hozzá a következő sort:

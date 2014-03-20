@@ -15,9 +15,9 @@ $img-border: inline-image('dotted-border.png');
 
 // Main Link Colors
 $link-color: $brick;
-$link-color-hover: $darkBrick !default;
-$link-color-visited: $yellow;
-$link-color-active: $yellow;
+$link-color-hover: $yellow !default;
+$link-color-visited: $darkBrick;
+$link-color-active: $darkBrick;
 
 // Main Section Colors
 $main-bg: #f8f8f8 !default;

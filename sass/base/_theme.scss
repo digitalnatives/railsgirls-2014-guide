@@ -83,12 +83,6 @@ a {
 html {
   background: $lightGray;
 }
-body {
-  > div {
-    background: $brick;
-    > div {
-      background: $brick;
-      // border-right: 1px solid $sidebar-border;
-    }
-  }
+#content {
+  background: $brick;
 }

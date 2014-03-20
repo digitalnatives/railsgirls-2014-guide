@@ -80,6 +80,10 @@ a {
   @include transition(color .3s);
 }
 
+h1 {
+  color: $brick;
+}
+
 html {
   background: $white;
 }

@@ -177,3 +177,9 @@ blockquote {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+p code {
+  border-radius: 3px;
+  padding: 2px 4px;
+  border: 1px solid #e1e1e8;
+}

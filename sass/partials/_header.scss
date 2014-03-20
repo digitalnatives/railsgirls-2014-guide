@@ -18,12 +18,10 @@ body > header {
     color: $subtitle-color;
     font-weight: normal;
   }
-  img {
-    max-width: 100px;
-    max-height: 100px;
-    padding-right: 30px;
-    position: relative;
-    top: 30px;
+  .logo {
+    vertical-align:middle;
+    margin-left: -308px;
+    margin-right: 10px;
   }
 }
 
@@ -32,6 +30,12 @@ body > header {
   body > header {
     h1 {
       padding-top: 40px;
+    }
+    .logo {
+      display: block;
+      margin: 0 auto;
+      max-width: 50%;
+      max-height: 50%;
     }
   }
 }

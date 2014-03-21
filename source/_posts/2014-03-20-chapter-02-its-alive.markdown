@@ -62,7 +62,7 @@ A heroku kliens a saját gépünkün fut, de mindenfélét el tud intézni nekü
 Kérni fogja a regisztrációhoz szükséges emailt és jelszót, adjuk meg.
 
 ### Egy kis előkészület
-A Heroku szerver környezete kicsit más, mint a mi saját fejlesztői környezetünk a saját gépünkön, ezért némi változtatást kell eszközölnünk a programunkon. A *config/application.rb* fájlhoz az utolsó sor (az `end`) előtt adjuk hozzá ezt a sort:
+A Heroku szerver környezete kicsit más, mint a mi saját fejlesztői környezetünk a saját gépünkön, ezért némi változtatást kell eszközölnünk a programunkon. A *config/application.rb* fájlhoz az utolsó előtti sor (az `end`) előtt adjuk hozzá ezt a sort:
 ``` ruby config/application.rb 
 	config.assets.initialize_on_precompile = false
 

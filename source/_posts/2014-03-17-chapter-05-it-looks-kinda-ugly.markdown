@@ -19,23 +19,25 @@ Használjuk a bootstrap.min.css fájlt, hogy kicsit könnyedebb stílusú legyen
 Nyissuk meg az `app/views/layouts/application.html.erb` fájlt a szövegszerkesztőnkben, és a
 
 ``` html app/views/layouts/application.html.erb
-	<link rel="stylesheet" href="http://railsgirls.com/assets/bootstrap.css">
+	<%= stylesheet_link_tag    "application", :media => "all" %>
 ```
 
-sort (ami az eddigi css elérési útvonala) írjuk át a következőre:
+sort után szúrjuk be az alábbit:
 
 ``` html app/views/layouts/application.html.erb
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
+  <%= stylesheet_link_tag "http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css", 
+													:media => "all" %>
+
 ```
 
-Látható, hogy a dizájn fájlt (http://railsgirls.com/assets/bootstrap.css) cseréltük le egy másikra (bootstrap.min.css). Ezeket a saját számítógépünkön is tárolhatjuk, sőt, sajátot is írhatunk, de most a gyorsabb haladás érdekében nem megyünk nagyon bele a részletekbe, hanem előre megírt stílusfájlokkal dolgozunk.
-Következő lépésként a `app/assets/stylesheets/application.css` fájlban a
+Ezeket a fájlokat saját számítógépünkön is tárolhatjuk, sőt, sajátot is írhatunk, de most a gyorsabb haladás érdekében nem megyünk nagyon bele a részletekbe, hanem előre megírt stílusfájlokkal dolgozunk.
+Következő lépésként a `app/assets/stylesheets/application.css` fájl végére írjuk be az alábbi sort
 
 ``` css app/assets/stylesheets/application.css
-	body { padding-top: 100px; }
+	body { padding: 30px 20px 0 20px; }
 ```
 
-sorban írjuk át a 100px méretet 60px-re. Ez már kőkemény programozás a stílusfájlban! Annyi történt, hogy átállítottuk a lap tetején levő tér méretét 100px-ről 60px-re.
+Ez már kőkemény programozás a stílusfájlban! Annyi történt, hogy beállítottuk a lap tetején levő tér méretét 30px-re, a jobb és bal oldalit pedig 20-20 pixelre.
 Végül pedig töröljük az `app/assets/stylesheets/scaffolds.css.scss` fájlt, hogy az alapból beállított Rails stílust most ne használja az oldalunk.
 Frissítsük az oldalt a [http://localhost:3000/ideas](http://localhost:3000/ideas) címen. Nem sok minden változott, de azért valami már kezd látszani (például a tetején látszik a méretváltozás).
 
@@ -45,13 +47,15 @@ Mivel az új ötlet hozzáadása az egyik legfontosabb funkciója az app-nek, cs
 Nyissuk meg a `app/views/layouts/application.html.erb` fájlt a szerkesztőben, és a
 
 ``` html app/views/layouts/application.html.erb
-	<li class="active"><a href="/ideas">Ideas</a></li>
+	<%= link_to "Ideas", ideas_path, class: "brand" %>
 ```
 
 sor alá tegyük be a következőt:
 
 ``` erb app/views/layouts/application.html.erb
-	<li ><%= link_to 'New Idea', new_idea_path %></li>
+  <ul class="nav">
+		<li ><%= link_to 'New Idea', new_idea_path %></li>
+	</ul>
 ```
 
 Ezzel gyakorlatilag annyit tettünk, hogy hozzáadtunk egy új linket az oldalunkhoz. Szinte szó szerint ezt is írtuk le a programban, csak angolul: a fájl neve, majd 'link to new idea'.
@@ -63,18 +67,22 @@ Tegyük most már profi kinézetűvé az ötletlista oldalunkat végre! Ehhez a 
 Nyissuk meg a `app/views/ideas/index.html.erb` fájlt a szerkesztőben, és az egészet írjuk át a következőre:
 
 ``` erb app/views/ideas/index.html.erb
-	<h1>Listing ideas</h1>
-	<% @ideas.in_groups_of(3) do |group| %>
-	  <div class="row">
-	    <% group.compact.each do |idea| %>
-	      <div class="span4">
-	        <%= image_tag idea.picture_url, :width => '100%' if idea.picture.present?%>
-	        <h4><%= link_to idea.name, idea %></h4>
-	        <%= idea.description %>
-	      </div>
-	    <% end %>
-	  </div>
-	<% end %>
+<h1>Listing ideas</h1>
+<% @ideas.in_groups_of(3) do |group| %>
+  <div class="row">
+    <% group.compact.each do |idea| %>
+      <div class="span4">
+        <h4><%= link_to idea.title, idea %></h4>
+        <%= idea.description %><br/>
+        <em><%= idea.user.try(:email) %></em>
+        <p>
+          <%= link_to 'Edit', edit_idea_path(idea) %> |
+          <%= link_to 'Destroy', idea, confirm: 'Are you sure?', method: :delete %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 ```
 
 Itt látható is, hogy megjelentek kis 'div' szövegek itt-ott a programban, és pontosan ez kellett nekünk. 
@@ -90,21 +98,18 @@ Kattintsunk az ötlet címére, és meg tudjuk nézni a hozzá tartozó részlet
 Nyissuk meg a `app/views/ideas/show.html.erb` fájlt a szeresztőben, és írjuk át az egészet a következőre:
 
 ``` erb app/views/ideas/show.html.erb
-	<p id="notice"><%= notice %></p>
-	<div class="row">
-	  <div class="span9">
-	    <%= image_tag(@idea.picture_url, :width => "100%") if @idea.picture.present? %>
-	  </div>
-	  <div class="span3">
-	    <p><b>Name: </b><%= @idea.name %></p>
-	    <p><b>Description: </b><%= @idea.description %></p>
-	    <p>
-	      <%= link_to 'Edit', edit_idea_path(@idea) %> |
-	      <%= link_to 'Destroy', @idea, confirm: 'Are you sure?', method: :delete %> |
-	      <%= link_to 'Back', ideas_path %>
-	    </p>
-	  </div>
-	</div>
+<div class="row">
+  <div class="span3">
+    <p><b>Name: </b><%= @idea.title %></p>
+    <p><b>Description: </b><%= @idea.description %></p>
+    <p><b>By: </b><%= @idea.user.try(:email) %></p>
+    <p>
+      <%= link_to 'Edit', edit_idea_path(@idea) %> |
+      <%= link_to 'Destroy', @idea, confirm: 'Are you sure?', method: :delete %> |
+      <%= link_to 'Back', ideas_path %>
+    </p>
+  </div>
+</div>
 ```
 
 Itt is bekerültek most a 'div'-ek, amiket már jól ismerünk. A css fájl pedig szépen a helyére pakolja a dolgokat.

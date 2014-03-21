@@ -2,7 +2,7 @@
 layout: post
 title: "Első fejezet - Milyen remek ötlet!"
 date: 2014-03-21 09:15:28 +0100
-published: false
+published: true
 comments: false
 categories:
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "Negyedik fejezet - Ötletgazdák"
 date: 2014-03-18 09:19:42 +0100
-published: false
+published: true
 comments: false
 categories:
 ---

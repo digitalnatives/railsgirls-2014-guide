@@ -2,7 +2,7 @@
 layout: post
 title: "Hatodik fejezet - Mi a helyzet a magántulajdonnal?"
 date: 2014-03-16 09:21:15 +0100
-published: false
+published: true
 comments: false
 categories:
 ---

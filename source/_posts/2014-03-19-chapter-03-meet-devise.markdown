@@ -2,7 +2,7 @@
 layout: post
 title: "Harmadik fejezet - Ismerkedjük meg a deviseszal"
 date: 2014-03-19 09:17:54 +0100
-published: false
+published: true
 comments: false
 categories:
 ---

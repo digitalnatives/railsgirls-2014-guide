@@ -44,7 +44,7 @@ Frissítsük az oldalt a [http://localhost:3000/ideas](http://localhost:3000/ide
 Mivel az új ötlet hozzáadása az egyik legfontosabb funkciója az app-nek, csináljunk neki egy gombot a menüsorba, hogy mindig egyből elérjük!
 Nyissuk meg a `app/views/layouts/application.html.erb` fájlt a szerkesztőben, és a
 
-``` erb app/views/layouts/application.html.erb
+``` html app/views/layouts/application.html.erb
 	<li class="active"><a href="/ideas">Ideas</a></li>
 ```
 

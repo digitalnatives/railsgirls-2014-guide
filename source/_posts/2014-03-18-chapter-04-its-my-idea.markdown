@@ -14,8 +14,8 @@ Ez a fejezet így arról fog szólni, hogy hogyan tudjuk összekötni az ötlete
 <!-- more -->
 
 Ahhoz, hogy össze tudjuk kapcsolni a már meglévő entitásainkat, nem árt, ha van valamiféle elképzelésünk arról, hogy milyen formában tárolódnak az adataink.
-A számítógépes programok a működésükhöz szükséges adatokat rendszerint valamilyen `adatbázisban` tárolják: a korszerű `adatbázis-kezelő rendszerek` lehetővé teszik, hogy adatokat gyorsan tudjunk visszakeresni.
-Ebben az alkalmazásban az `SQLite` adatbázis-kezelőt használjuk. Az SQLite direkt kicsire és egyszerűre tervezett kis motor, de attól még nem szabad lebecsülni: igazi nagy programok is használják, például a Firefox böngésző is.
+A számítógépes programok a működésükhöz szükséges adatokat rendszerint valamilyen *adatbázisban* tárolják: a korszerű *adatbázis-kezelő rendszerek* lehetővé teszik, hogy adatokat gyorsan tudjunk visszakeresni.
+Ebben az alkalmazásban az *SQLite* adatbázis-kezelőt használjuk. Az SQLite direkt kicsire és egyszerűre tervezett kis motor, de attól még nem szabad lebecsülni: igazi nagy programok is használják, például a Firefox böngésző is.
 De hogyan is kell elképzelni egy ilyen adatbázist? Lényegében nem több, mint táblázatok összessége, melyeknek minden sora egy úgynevezett rekord - összekapcsolódó adatok halmaza -, egy oszlopba pedig az ugyanolyan jellegű adatok kerülnek.
 
 Nade pontosan hogyan is néz ki ez esetünkben? Kétféleképpen is kereshetünk támpontokat.
@@ -52,16 +52,16 @@ ActiveRecord::Schema.define(:version => 20140310153638) do
 end
 ```
 
-Ha nem csak erre, hanem magára az adatbázis tartalmára is kíváncsiak vagyunk, akkor használhatjuk például a Mozzillához írt `SQLIte Manager` nevű modult, ez elvileg mindenkinél használatra kész (ha esetleg mégsem, az alábbi linkre kattintva telepíthető: [https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/?src](https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/?src)).
-Kattintsunk a böngészőben kattintsunk a `Tools` menüpontra, majd ott az `SQLite Manager`re. Ezek után kapcsolódjuk az adatbázisunkhoz: a `Database` menüpont alatt keressük és nyomjuk meg a `Connect Database` opciót, és a felugró fájlkeresőben válasszuk ki a `db/development.sqlite3` fájlt (abból a mappából kiindulva, ahol a projektünk van).
+Ha nem csak erre, hanem magára az adatbázis tartalmára is kíváncsiak vagyunk, akkor használhatjuk például a Mozzillához írt *SQLIte Manager* nevű modult, ez elvileg mindenkinél használatra kész (ha esetleg mégsem, az alábbi linkre kattintva telepíthető: [https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/?src](https://addons.mozilla.org/en-US/firefox/addon/sqlite-manager/?src)).
+Kattintsunk a böngészőben kattintsunk a *Tools* menüpontra, majd ott az *SQLite Manager*-re. Ezek után kapcsolódjuk az adatbázisunkhoz: a *Database* menüpont alatt keressük és nyomjuk meg a *Connect Database* opciót, és a felugró fájlkeresőben válasszuk ki a `db/development.sqlite3` fájlt (abból a mappából kiindulva, ahol a projektünk van).
 
 {% img center /images/chapter_04/sqlite_manager.png 1366 768 %}
 
-Amit a nézelődés során érdemes észrevenni: minden táblában találunk egy olyan oszlopot, ami valamiféle `id`nak, úgynevezett egyedi azonosítónak van elnevezve. Ez az oszlop egész számokat tartalmaz, és azt lehet róla tudni, egy adott táblában minden rekordé garantáltan különbözik, ezzel téve lehetővé, hogy egyértelműen azonosítani tudjuk a táblázat egy-egy sorát.
+Amit a nézelődés során érdemes észrevenni: minden táblában találunk egy olyan oszlopot, ami valamiféle *id*-nak, úgynevezett egyedi azonosítónak van elnevezve. Ez az oszlop egész számokat tartalmaz, és azt lehet róla tudni, egy adott táblában minden rekordé garantáltan különbözik, ezzel téve lehetővé, hogy egyértelműen azonosítani tudjuk a táblázat egy-egy sorát.
 
 Ez fogja a kezünkbe adni a kulcsot a probléma megoldására, hogy hogyan is tudnánk összekapcsolni az ötleteket a gazdáikkal: ha az ötleteket tartalmazó táblába felveszünk egy új oszlopot, ami a hozzá tartozó felhasználó egyedi azonosítószámát tartalmazza, onnantól ha ebben vagy egy érték, akkor meg tudjuk keresni, hogy melyik felhasználó az, aki az ötletet létrehozta.
 
-Lényegében arra van itt szükség, hogy válztassunk az adatbázis sémán, a Rails keretein belül pegig ezt egy úgynevezett `migration` létrehozásával és futtatásával tehetjük meg.
+Lényegében arra van itt szükség, hogy válztassunk az adatbázis sémán, a Rails keretein belül pegig ezt egy úgynevezett *migration* létrehozásával és futtatásával tehetjük meg.
 Generáljunk egy migrationt az alábbi paranccsal:
     $ rails generate migration add_user_id_to_ideas
 
@@ -112,7 +112,7 @@ def index
 end
 ```
 
-Itt láthatjuk, ahogyan a kontroller kommunikál a modellel, elkéri tőle az összes létező ötletünket az `Idea.all` hívással, majd ezt elérhetővé teszi a megjelenítési réteg -az eddig kimaradt V betű- számára. De nem csak megjelenítésben van szerepe a kontrollernek, hanem például abban is, amikor a formon keresztül létre szeretnénk hozni egy ötletet. Itt a kapcsolat iránya megfordul: a kontroller értelmezi, hogy milyen adatokat kaptunk a felületről a formon keresztül, majd ezek alapján meghívja a megfelelő modell metódust, amivel létre lehet hozni egy új ötletet.
+Itt láthatjuk, ahogyan a kontroller kommunikál a modellel, elkéri tőle az összes létező ötletünket az `Idea.all` hívással, majd ezt elérhetővé teszi a megjelenítési réteg -az eddig kimaradt V betű - számára. De nem csak megjelenítésben van szerepe a kontrollernek, hanem például abban is, amikor a formon keresztül létre szeretnénk hozni egy ötletet. Itt a kapcsolat iránya megfordul: a kontroller értelmezi, hogy milyen adatokat kaptunk a felületről a formon keresztül, majd ezek alapján meghívja a megfelelő modell metódust, amivel létre lehet hozni egy új ötletet.
 Ez az a pont, ahova nekünk kicsit bele kell nyúlni, a formból jövő adatokat még ki kell annyival egészíteni, hogy ki a létrehozó felhasználó.
 
 Egészítsük ki az ötletekért felelős controller `create` függvényét:

@@ -31,7 +31,7 @@ A VirtualBox az Oracle szoftvercég virtualicáziós platformja, amely ingyenese
 
 ### RailsGirls virtuális gép
 
-Töltsük le [ide kattintva](https://dl.dropboxusercontent.com/u/1161080/railsgirls_virtualbox_vm.zip) a virtuális gépet. Letöltés után csomagoljuk ki a zip file-t egy olyan könyvtárba, amit később is megtalálunk.
+Töltsük le [ide kattintva](http://www.digitalnatives.hu/demos/railsgirls/railsgirls_virtualbox_vm.zip) a virtuális gépet. Letöltés után csomagoljuk ki a zip file-t egy olyan könyvtárba, amit később is megtalálunk.
 Nyissuk meg a már feltelepített VirtualBox alkalmazást. A menüben keressük meg a Machine/Add funkciót. Tallózzuk be az imént kicsomagolt könyvtárat, és válasszuk ki a vbox kiterjesztésű file-t.
 Ha minden jól ment, akkor a VirtualBox program bal oldali részén megjelent a RailsGirls nevű virtuális gép, eljött az idő, hogy elindítsuk!
 

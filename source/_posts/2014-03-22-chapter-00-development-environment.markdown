@@ -92,7 +92,7 @@ Hozzunk létre egy üres file-t:
 
     $ touch test.txt
 
-Most nézzük meg a saját operációs rendszerünkben, hogy a megosztott könyvtárban ott van e a `test.txt` file. Ha igen, akkor készen van a virtuális környezetünk! :)
+Most nézzük meg a saját operációs rendszerünkben, hogy a megosztott könyvtárban ott van-e a `test.txt` file. Ha igen, akkor készen van a virtuális környezetünk! :)
 
 ## Böngésző
 

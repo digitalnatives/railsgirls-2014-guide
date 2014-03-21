@@ -64,7 +64,7 @@ Ezzel a paranccsal a következőt mondtuk meg a Rails-nek: "generálj nekem kér
 
 A parancs kiadása után látszik, hogy milyen file-okat hozott létre a scaffold generátor. Látszik, hogy főleg az app könyvtárunk alkönyvtáraiban (model, controller és view könyvtárakban) keletkeztek file-ok.
 
-Létrejött továbbá a *db/migration* könyvtár alatt is egy új file. Ez tartalmazza, hogy az adatbázisunkban létre kell hozni egy új táblát (ideas néven), amiben olyan rekordok lesznek, amiknek egy rövid szöveg típusú title-jük és egy hosszú szöveg típusú description-ük kerül eltárolásra.
+Létrejött továbbá a *db/migrate* könyvtár alatt is egy új file. Ez tartalmazza, hogy az adatbázisunkban létre kell hozni egy új táblát (ideas néven), amiben olyan rekordok lesznek, amiknek egy rövid szöveg típusú title-jük és egy hosszú szöveg típusú description-ük kerül eltárolásra.
 
 A konzolban futtasuk le a következő parancsot, ahhoz, hogy az adatbázis-szintű változások megtörténjenek:
 

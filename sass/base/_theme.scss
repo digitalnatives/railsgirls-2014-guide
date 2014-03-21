@@ -14,10 +14,10 @@ $noise-bg: image-url('noise.png') top left !default;
 $img-border: inline-image('dotted-border.png');
 
 // Main Link Colors
-$link-color: $yellow;
-$link-color-hover: $darkBrick !default;
-$link-color-visited: $yellow;
-$link-color-active: $yellow;
+$link-color: $brick;
+$link-color-hover: $lightBrick !default;
+$link-color-visited: $darkBrick;
+$link-color-active: $darkBrick;
 
 // Main Section Colors
 $main-bg: #f8f8f8 !default;
@@ -80,15 +80,10 @@ a {
   @include transition(color .3s);
 }
 
-html {
-  background: $lightGray;
+h1 {
+  color: $brick;
 }
-body {
-  > div {
-    background: $brick;
-    > div {
-      background: $brick;
-      // border-right: 1px solid $sidebar-border;
-    }
-  }
+
+html {
+  background: $white;
 }

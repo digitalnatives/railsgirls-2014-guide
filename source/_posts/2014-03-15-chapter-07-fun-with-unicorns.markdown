@@ -39,31 +39,27 @@ module IdeasHelper
 end
 ```
 
-Ezek után pedig nincs más dolgunk, mint a megfelelő viewkban lecserélni a felhasználó e-mail címét az avatarjára:
+Ezek után pedig nincs más dolgunk, mint a megfelelő viewkban beszúrni a felhasználó avatarját az alábbi kódrészlet szerint:
 ``` erb app/views/ideas/index.html.erb
-<% @ideas.each do |idea| %>
-  <tr>
-    <td><%= idea.title %></td>
-    <td><%= idea.description %></td>
-    <td><%= creator_unicorn_img(idea) %></td>
-    <td><%= link_to 'Show', idea %></td>
-
-    <% if idea.created_by?(current_user) %>
-      <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
-      <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% else %>
-      <td></td>
-      <td></td>
-    <% end %>
-  </tr>
-<% end %>
+  <% group.compact.each do |idea| %>
+    <div class="span1"><%= creator_unicorn_img(idea) %></div>
+    <div class="span3">
+      <h4><%= link_to idea.title, idea %></h4>
+      <%= idea.description %><br/>
+      <em><%= idea.user.try(:email) %></em>
+      <% if idea.created_by?(current_user) %>
+        <p>
+          <%= link_to 'Edit', edit_idea_path(idea) %> |
+          <%= link_to 'Destroy', idea, confirm: 'Are you sure?', method: :delete %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
 ```
 
 ``` erb app/views/ideas/show.html.erb
-<p>
-  <b>By:</b>
-  <td><%= creator_unicorn_img(@idea, 128) %></td>
-</p>
+  <%= creator_unicorn_img(@idea, 128) %>
+  <p><b>By: </b><%= @idea.user.try(:email) %></p>
 ```
 
 Utolsó lépésként rakjuk ki a kész alkalmazásunkat a Herokura:

@@ -26,27 +26,24 @@ end
 Ha ez megvan, akkor ezt fel tudjuk használni a megfelelő view fájlokban, és az eredénye alapján el tudjuk dönteni, hogy szükség van-e a linkre, vagy sem:
 
 ``` erb app/views/ideas/index.html.erb
-<% @ideas.each do |idea| %>
-  <tr>
-    <td><%= idea.title %></td>
-    <td><%= idea.description %></td>
-    <td><%= idea.user.try(:email) %></td>
-    <td><%= link_to 'Show', idea %></td>
-
+<% group.compact.each do |idea| %>
+  <div class="span4">
+    <h4><%= link_to idea.title, idea %></h4>
+    <%= idea.description %>
     <% if idea.created_by?(current_user) %>
-      <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
-      <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    <% else %>
-      <td></td>
-      <td></td>
+      <p>
+        <%= link_to 'Edit', edit_idea_path(idea) %> |
+        <%= link_to 'Destroy', idea, confirm: 'Are you sure?', method: :delete %>
+      </p>
     <% end %>
-  </tr>
+  </div>
 <% end %>
 ```
 
 ``` erb app/views/ideas/show.html.erb
 <% if @idea.created_by?(current_user) %>
-  <%= link_to 'Edit', edit_idea_path(@idea), class: "btn btn-default btn-lg", role: "button" %>
+  <%= link_to 'Edit', edit_idea_path(@idea) %> |
+  <%= link_to 'Destroy', @idea, confirm: 'Are you sure?', method: :delete %> |
 <% end %>
 ```
 
@@ -62,6 +59,7 @@ before_filter :check_creator, only: [:edit, :update, :destroy]
 
    ...
 
+private
 def check_creator
   @idea = Idea.find(params[:id])
   unless @idea.created_by?(current_user)
